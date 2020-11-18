@@ -6,45 +6,31 @@
 # position[i] + 2 or position[i] - 2 with cost = 0.
 # position[i] + 1 or position[i] - 1 with cost = 1.
 # Return the minimum cost needed to move all the chips to the same position.
-
-def maxPower(self, s: str) -> int:
-
-        # output: len of max substring of consecutive char as int
-        # input: str
-        # constraints: length from 1-500, only lowercase english letters
-        # edge cases: must work for length of 1
+class Solution:
+    def minCostToMoveChips(self, position: List[int]) -> int:
+        # output: int
+        # input: array
+        # constraints: input not empty
+        # edge cases: if len(input) is 1, return 0, equal number of odds/evens 
         
-        # keep track of the max length as we go, and also have a current max length
-        # greatest max = 1
-        # loop through string (while next char)
-        # if next char is equal to current char:
-            # increase local max
-            # if local max is greater than the greatest max
-                # greatest max = greatest max
-        # return greatest max
+        # get parity counts
+        # return minority
         
-        # the lowest possible max would be 1
-        greatest_max = 1
-        local_max = 1
+        # we start with no evens or odds
+        evens = 0
+        odds = 0
         
-        for i in range(len(s)-1):
+        # iterate through
+        for num in position:
 
-            # if the next char is same as current char
-            if s[i+1] == s[i]:
+            # if num is even
+            if num % 2 == 0:
+                evens += 1
 
-                # increase local max
-                local_max += 1
-
-                # if local max has exceeded greatest max found so far 
-                if local_max > greatest_max:
-
-                    # update the greatest max
-                    greatest_max = local_max
-
-            # if next char is different from current char
+            # if num is odd
             else:
-
-                # reset local max and move on to next i
-                local_max = 1
-                
-        return greatest_max
+                odds += 1
+        
+        # return the minority, as we will end up moving these minority chip parity 
+        # for a cost of 1 each to make them the same parity as the majority
+        return min(evens, odds)

@@ -19,15 +19,28 @@ class Solution:
                 # greatest max = greatest max
         # return greatest max
         
+        # the lowest possible max would be 1
         greatest_max = 1
         local_max = 1
         
         for i in range(len(s)-1):
+
+            # if the next char is same as current char
             if s[i+1] == s[i]:
+
+                # increase local max
                 local_max += 1
+
+                # if local max has exceeded greatest max found so far 
                 if local_max > greatest_max:
+
+                    # update the greatest max
                     greatest_max = local_max
+
+            # if next char is different from current char
             else:
+
+                # reset local max and move on to next i
                 local_max = 1
                 
         return greatest_max
