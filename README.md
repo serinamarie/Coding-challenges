@@ -1,2 +1,2 @@
 # Coding-challenges
-A repository of completed code challenges
+A repository of completed LeetCode challenges.
