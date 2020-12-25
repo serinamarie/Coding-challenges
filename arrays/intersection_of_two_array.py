@@ -11,14 +11,17 @@ class Solution:
         intersection = []
         
         # for each number in our first array
-        for x in nums1:
+        for num in nums1:
+
             # if it is also in our second array
-            if x in nums2:
+            if num in nums2:
+
                 # append it to our intersection list
-                intersection.append(x)
+                intersection.append(num)
+
                 # then remove it from our second list, that way we 
                 # can ensure duplicate ints are properly handled
-                nums2.remove(x)
+                nums2.remove(num)
           
         # return matching numbers
         return intersection
