@@ -10,7 +10,6 @@ class Solution:
      
         # edge cases: length of 0, length of 1, no extra memory
         
-        
         # if the array is empty return
         # if array is of length 1: return
         
