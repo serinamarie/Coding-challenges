@@ -21,11 +21,15 @@ class Solution:
   
         # otherwise iterate through string characters
         for char in s:
+
             # remove each char in s from t 
             t = t.replace(char, '', 1)
+
             # if we now have an empty t
             if not t:
+
                 # they are anagrams!
                 return True
+                
         # if we have finished iterating and still have remaining letters in t, they are not anagrams
         return False
