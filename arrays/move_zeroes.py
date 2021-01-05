@@ -29,6 +29,7 @@ class Solution:
         
         # for item in range of j to the end of the array
         for index in range(j, len(nums)):
+            
             # make that index 0
             nums[index] = 0
 
