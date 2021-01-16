@@ -44,7 +44,6 @@
         # for row in csv_data:
             # cur.execute('INSERT INTO student(id, first_name, last_name)' 'VALUES(%s, %s, %s), row)
 
-
 # WRANGLE DF WITH PANDAS
     # filter by column value, e.g. with df.query('origin == "PHX" & dest == "MCO"')
         # also could use .loc or df subset
@@ -186,6 +185,7 @@
     # cur.execute(query).fetchall()
     # cur.fetchall()
 
+<<<<<<< HEAD
 #     summary_data = "https://api.covid19api.com/summary"
     # Request the data
     response = requests.get(summary_data)
@@ -211,6 +211,8 @@
             conn.commit()
 
 
+=======
+>>>>>>> db7dce36142d16f3d41497f3c03ae78695b2c8ce
 # save data as CSV or JSON in current directory, or in different directory 
     # check the current directory and save to current or another
         # os.getcwd()
