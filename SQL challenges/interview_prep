@@ -1,0 +1,96 @@
+# READ IN MULTIPLE CSVS from another directory or same directory and concatenate
+    # import pandas and glob
+    # all_csvs = glob.glob('/folder/*.csv')
+    # all_dfs = (pd.read_csv(f) for f in all_csvs)
+    # concatted_df = pd.concat(all_dfs, ignore_index=True)
+
+    # alternative
+    # df = pd.concat(map(pd.read_csv, glob.glob('./folder/*.csv')))
+
+    # NO GLOB
+    # from os import listdir
+    # all_csvs = [f for f in listdir('./folder') if f.endswith('.csv')]
+    # concatted_df = pd.concat(map(pd.read_csv, all_csvs))
+
+    # with csv
+        # with open('/folder/flights.csv') as f:
+            # d = csv.DictReader(f)
+            # lol = list(d)
+
+
+    # with pandas
+        # with header row
+            # pd.read_csv('data.csv')
+        # with header in second row 
+            # pd.read_csv("data.csv", header=1)
+        # write your own column names in place of header
+            # pd.read_csv('data.csv', skiprows=1, names=["better_name1", "better_name2"])
+        # skip rows but keep header 
+            # pd.read_csv('data.csv', skiprows=[1,2]) <-- skips 2nd and 3rd row!!!
+        # without header 
+            # pd.read_csv('data.csv', header=None)
+        # set index column
+            # pd.read_csv('data.csv', index_col="ID")
+        # only the first n rows / last n rows
+            # pd.read_csv('data.csv', nrows=5)
+            # pd.read_csv('data,csv', skip_footer=10)
+        # only specific columns 
+            # pd.read_csv('data.csv', usecols=[1,5,7])
+        # delimiter semi-colon
+            # pd.read_csv('data.csv', sep=';') working alias: delimiter
+        # measure time taken to import  
+            # verbose = True 
+        # change column type while importing
+            # pd.read_csv('data.csv', dtype={'cost': 'float64'})
+    
+
+# WRANGLE DF WITH PANDAS
+    # filter by column value, e.g. with df.query('origin == "PHX" & dest == "MCO"')
+        # also could use .loc or df subset
+    # filter by row and column with .iloc[r,w] 
+        # df.iloc[1:5] for 2nd - 5th row
+        # df.iloc[5,0] for 6th row and 1st column
+        # df.iloc[2:7,1:3] for 3rd - 7th row, 2nd-3rd column
+    # filter for multiple values in a column
+        # df[df.origin.isin(["JFK", "MCO"])]
+    # negate a condition
+        # df[~((df.origin == "PHX") & (df.dest == "MCO"))]
+    # no nulls
+        # df[df['origin'].notnull()] 
+    # filter strings 
+        # df[df['origin'].str.len()>3]
+        # df[df['origin'].str.contains('A'|'B')]
+    # rename columns
+        # df.rename(columns={'origin': 'orig'}, inplace=True)
+# WRANGLE DATA NO DF/PANDAS
+    # lambda_method = list(filter(lambda x: x['origin'] == 'PHX' and x['dest'] == 'MCO', lol))
+    # list_comp_method = list(x for x in lol if x['origin'] == 'PHX' and x['dest'] == "MCO')
+# connect to db with pyodbc or sqlite or something
+
+# create a db
+
+
+# create a table
+
+
+# insert data 
+    # manually
+        # '''
+        INSERT INTO products values(
+            "baseball cap", "10", "red"),
+            ("journal", "15", "blue");
+            '''
+    # from csv
+    # from df
+    # from json
+
+
+# save data as csv in current directory, or in different directory 
+    # check the current directory and save to current or another
+        # os.getcwd()
+        # list_df.to_csv('very_important.csv', index=False)
+        
+        # OR os.chdir('/folder/wheredatagoes') first
+
+# save data as json
+    output = json.dumps(query)
