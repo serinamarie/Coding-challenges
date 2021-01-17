@@ -151,10 +151,14 @@
                 # sql --> df --> csv OR json
                     # df2 = pd.read_sql("select * from users", con=engine)
                     # df2.to_csv('df2.csv') or df2.to_json(orient=)
-
+            # WITHOUT SQLALCHEMY 
+                # df.to_sql('users', con=conn, if_exists='replace', index = False)
     # from json
         # with open('*.json') as f:
             data = json.load(f)
+            
+        # if file contents,
+            # data = json.loads('content')
 
 # query db  
     # cur.execute(query).fetchall()
