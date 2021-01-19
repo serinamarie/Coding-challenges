@@ -44,7 +44,6 @@
         # for row in csv_data:
             # cur.execute('INSERT INTO student(id, first_name, last_name)' 'VALUES(%s, %s, %s), row)
 
-
 # WRANGLE DF WITH PANDAS
     # filter by column value, e.g. with df.query('origin == "PHX" & dest == "MCO"')
         # also could use .loc or df subset
@@ -163,7 +162,6 @@
 # query db  
     # cur.execute(query).fetchall()
     # cur.fetchall()
-
 
 # save data as CSV or JSON in current directory, or in different directory 
     # check the current directory and save to current or another
