@@ -1,48 +1,43 @@
+------INPUT-------
+
 # READ IN MULTIPLE CSVS from another directory or same directory and concatenate
-    # import pandas and glob
-    # all_csvs = glob.glob('/folder/*.csv')
-    # all_dfs = (pd.read_csv(f) for f in all_csvs)
-    # concatted_df = pd.concat(all_dfs, ignore_index=True)
+    import pandas and glob
+    all_csvs = glob.glob('/folder/*.csv')
+    all_dfs = (pd.read_csv(f) for f in all_csvs)
+    concatted_df = pd.concat(all_dfs, ignore_index=True)
 
-    # alternative
-    # df = pd.concat(map(pd.read_csv, glob.glob('./folder/*.csv')))
+    alternative
+    df = pd.concat(map(pd.read_csv, glob.glob('./folder/*.csv')))
 
-    # with csv (import csv)
-        # with open('/folder/flights.csv') as f:
-            # d = csv.DictReader(f)
-            # lol = list(d)
+    with csv (import csv)
+        with open('/folder/flights.csv') as f:
+            d = csv.DictReader(f)
+            lol = list(d)
 
-    # with pandas
-        # with header row
-            # pd.read_csv('data.csv')
-        # with header in second row 
-            # pd.read_csv("data.csv", header=1)
-        # write your own column names in place of header
-            # pd.read_csv('data.csv', skiprows=1, names=["better_name1", "better_name2"])
-        # skip rows but keep header 
-            # pd.read_csv('data.csv', skiprows=[1,2]) <-- skips 2nd and 3rd row!!!
-        # without header 
-            # pd.read_csv('data.csv', header=None)
-        # set index column
-            # pd.read_csv('data.csv', index_col="ID")
-        # only the first n rows / last n rows
-            # pd.read_csv('data.csv', nrows=5)
-            # pd.read_csv('data,csv', skip_footer=10)
-        # only specific columns 
-            # pd.read_csv('data.csv', usecols=[1,5,7])
-        # delimiter semi-colon
-            # pd.read_csv('data.csv', sep=';') working alias: delimiter
-        # measure time taken to import  
-            # verbose = True 
-        # change column type while importing
-            # pd.read_csv('data.csv', dtype={'cost': 'float64'})
-    
-# CSV TO DATABASE TABLE W/ NO WRANGLING
-    # with open('students.csv') as f:
-        # csv_data = csv.reader(f)
-    # with conn.cursor() as cur:
-        # for row in csv_data:
-            # cur.execute('INSERT INTO student(id, first_name, last_name)' 'VALUES(%s, %s, %s), row)
+    with pandas
+        with header row
+            pd.read_csv('data.csv')
+        with header in second row 
+            pd.read_csv("data.csv", header=1)
+        write your own column names in place of header
+            pd.read_csv('data.csv', skiprows=1, names=["better_name1", "better_name2"])
+        skip rows but keep header 
+            pd.read_csv('data.csv', skiprows=[1,2]) <-- skips 2nd and 3rd row!!!
+        without header 
+            pd.read_csv('data.csv', header=None)
+        set index column
+            pd.read_csv('data.csv', index_col="ID")
+        only the first n rows / last n rows
+            pd.read_csv('data.csv', nrows=5)
+            pd.read_csv('data,csv', skip_footer=10)
+        only specific columns 
+            pd.read_csv('data.csv', usecols=[1,5,7])
+        delimiter semi-colon
+            pd.read_csv('data.csv', sep=';') working alias: delimiter
+        measure time taken to import  
+            verbose = True 
+        change column type while importing
+            pd.read_csv('data.csv', dtype={'cost': 'float64'})
 
 # WRANGLE DF WITH PANDAS
     # filter by column value, e.g. with df.query('origin == "PHX" & dest == "MCO"')
@@ -67,65 +62,132 @@
 # WRANGLE DATA NO DF/PANDAS
     # lambda_method = list(filter(lambda x: x['origin'] == 'PHX' and x['dest'] == 'MCO', lol))
     # list_comp_method = list(x for x in lol if x['origin'] == 'PHX' and x['dest'] == "MCO')
+            
+------CREATE-------
 
-# connect to db with pyodbc or sqlite or something
-    # import pyodbc 
-    # conn = pyodbc.connect()
+# CREATE A CONNECTION AND A DB IF NOT EXISTS
+    import sqlite3
+    from sqlite3 import Error
+    conn = sqlite3.connect('test.db')
+    try, except Error:
+        print(Error)
+        
+    # with mysql
+        import mysql.connector
+        conn = mysql.connector.connect(host=, user=, password=, database=)
+        can use exceptions with Error, instead of having to write them out
+        except Error as err:
+            print(f"Error: '{err}'")
+        cur.execute("CREATE DATABASE testdatabase")
+        additionally
+            cur.execute('SHOW DATABASES')
+            
+    # with psycopg2 
+        conn = psycopg2.connect(database=, user=, password, host=, port=)
+        cur.execute("""CREATE DATABASE test""")
 
-    # import mysql.connector
-    # from mysql.connector import Error
-    # conn = mysql.connector.connect(host=, user=, passwd=)
-    # can use exceptions with Error, instead of having to write them out
-        # except Error as err:
-            # print(f"Error: '{err}'")
-
-    # import psycopg2 
-    # conn = psycopg2.connect(host=, database=, user=, password=)
-
-    # import sqlite3
-    # from sqlite3 import Error
-    # conn = sqlite3.connect('test.db')
-    # try, except Error:
-        # print(Error)
-    
-
-# create a db
     # with sqlalchemy
-        # conn.execute("CREATE DATABASE test")
+        from sqlalchemy import create_engine
+        engine = create_engine('sqlite://', echo=False)
+        conn.execute("CREATE DATABASE test")
 
     # with pyodbc 
-        # cur.execute("CREATE DATABASE [TestDatabase]")
-
-    # with mysql
-        # cur.execute("CREATE DATABASE testdatabase")
-        # additionally
-            # cur.execute('SHOW DATABASES')
-
+        import pyodbc 
+        conn = pyodbc.connect()
+        cur.execute("CREATE DATABASE [TestDatabase]")
+        
     # with pymongo
-        # from pymongo import MongoClient
-        # client = MongoClient('localhost', 27017)
-        # db = client['testdb']
+        from pymongo import MongoClient
+        client = MongoClient('localhost', 27017)
+        db = client['testdb']
         # additionally  
-            # print(client.list_database_names())
+            print(client.list_database_names())
 
-    # with psycopg2 
-        # conn = psycopg2.connect(database=, user=, password, host=, port=)
-        # cur.execute("""CREATE DATABASE test""")
-
-# create a table
+# CREATE A TABLE
     create_table = '''CREATE TABLE test(
         id serial PRIMARY KEY,
         num INT,
         data VARCHAR(3)
-    );
-    '''
+    );'''
+    
+# ALTER TABLE
+    alter_table_query = '''ALTER TABLE table_name
+        ADD last_name VARCHAR(30);'''
+        
+    change_datatype_query = '''ALTER TABLE table_name
+        MODIFY COLUMN column_name datatype;'''
 
-# INSERT DATA MANUALLY
-    # '''
+------READ INTO DB-------
+
+# CSV TO DB 
+    with open('students.csv') as f:
+        csv_data = csv.reader(f)
+    with conn.cursor() as cur:
+        for row in csv_data:
+            cur.execute('INSERT INTO student(id, first_name, last_name)' 'VALUES(%s, %s, %s), row)
+
+# MANUAL INSERTION
+    '''
     INSERT INTO products values(
         "baseball cap", "10", "red"),
         ("journal", "15", "blue"); 
         '''
+        
+# DATAFRAME TO DB
+    df.to_sql('users', con=conn, if_exists='replace', index = False)
+    
+# INSERT JSON (by transforming into Python dict)
+    with open('*.json') as f:
+        record_list = json.load(f)
+
+    # or if string
+    record_list = json.loads('content')
+     
+    for record in record_list:
+        with conn.cursor() as cur:
+            query = (
+            "INSERT INTO EMPLOYEE(FIRST_NAME, LAST_NAME, AGE, SEX, INCOME)"
+            "VALUES (%s, %s, %s, %s, %s)"
+            )
+            data = ('Ramya', 'Ramapriya', 25, 'F', 5000)
+            cursor.execute(insert_stmt, data)
+            conn.commit()
+
+    for record in record_list:
+        with conn.cursor() as cur:
+            query = 'UPDATE summary SET totalconfirmed=%s WHERE country=%s;'
+            data = (record['TotalConfirmed'], record['Country'])
+            cur.execute(query, data)
+            conn.commit()
+     return 'Summary table updated'
+ 
+------READ FROM DB-------
+
+# cur.execute(query).fetchall()
+# or cur.fetchall() after cur.execute(query)
+
+# df = pd.read_sql("select * from users", con=engine)
+# df = pd.read_sql("""
+    SELECT first_name, age
+    FROM people
+    WHERE age > 10
+    ORDER BY first_name
+    """, 
+    con = conn)
+
+------OUTPUT-------
+
+# SAVE DATA AS CSV or JSON in current directory, or in different directory 
+    # check the current directory and save to current or another
+        # os.getcwd() OR os.chdir('/folder/wheredatagoes') 
+        # df.to_csv('very_important.csv', index=False)
+   
+        # df.to_json('*.json', orient=)
+        # result.to_json('output.json', orient=)
+        # return json.dumps(result)
+        
+------EXTRAS-------
+
 # INSERT DATA DIRECTLY FROM A CSV, AFTER CREATING A TABLE
     # mysql
     '''
@@ -144,63 +206,7 @@
     '''
     # returns COPY n, where n is the number of rows in the table
     
-# INSERT DATAFRAME -> DATABASE
-    # WITH SQLALCHEMY
-        # from sqlalchemy import create_engine
-        # engine = create_engine('sqlite://', echo=False)
-        # df.to_sql('users', con=engine, if_exists='replace', index=False)
-            # sql --> df --> csv OR json
-                # df2 = pd.read_sql("select * from users", con=engine)
-                # df2 = pd.read_sql("""
-                    SELECT column_1, column_2
-                    FROM Table
-                    WHERE column_1 > number
-                    ORDER BY column_1
-                    """, 
-                    con = url)
-                # df2.to_csv('df2.csv') or df2.to_json(orient=)
-    # WITHOUT SQLALCHEMY 
-        # df.to_sql('users', con=conn, if_exists='replace', index = False)
-        
-# INSERT JSON -> DATABASE
-        # with open('*.json') as f:
-            data = json.load(f)
-            
-        # if file contents,
-            # data = json.loads('content')
 
-# USE DICTIONARY TO UPDATE EXISTING TABLE IN POSTGRESQL
-
-    record_list = dict['Countries']
-
-    for record in record_list:
-
-        with conn.cursor() as cur:
-            sql = 'UPDATE summary totalconfirmed=%s WHERE country=%s;'
-            data = (record['TotalConfirmed'], record['Country'])
-            cur.execute(sql, data)
-            conn.commit()
-     return 'Summary table updated'
-
-# QUERY DB
-    # cur.execute(query).fetchall()
-    # cur.fetchall()
-
-    # summary_data = "https://api.covid19api.com/summary"
-    # Request the data
-    response = requests.get(summary_data)
-    nested_dict = response.json()
-    record_list = nested_dict['Countries']
-
-    for record in record_list:
-
-        with conn.cursor() as cur:
-            sql = 'UPDATE summary SET date=%s, totalconfirmed=%s WHERE country=%s;'
-            data = (record['Date'], record['TotalConfirmed'], record['Country'])
-            cur.execute(sql, data)
-            conn.commit()
-    return 'status: 200'    
-    
 # USE DICTIONARY TO UPDATE EXISTING TABLE IN SQLITE3
     for record in record_list:
 
@@ -209,13 +215,3 @@
             data = (record['Date'], record['TotalConfirmed'], record['Country'])
             cur.execute(sql, data)
             conn.commit()
-
-# SAVE DATA AS CSV or JSON in current directory, or in different directory 
-    # check the current directory and save to current or another
-        # os.getcwd()
-        # list_df.to_csv('very_important.csv', index=False)
-        
-        # OR os.chdir('/folder/wheredatagoes') first
-
-        # result.to_json('output.json', orient=)
-        # return json.dumps(result)
