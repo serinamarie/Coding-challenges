@@ -13,6 +13,7 @@
         with open('/folder/flights.csv') as f:
             d = csv.DictReader(f)
             lol = list(d)
+            
     with pandas
         with header row
             pd.read_csv('data.csv')
@@ -37,6 +38,7 @@
             verbose = True 
         change column type while importing
             pd.read_csv('data.csv', dtype={'cost': 'float64'})
+            
 # WRANGLE DF WITH PANDAS
     # filter by column value, e.g. with df.query('origin == "PHX" & dest == "MCO"')
         # also could use .loc or df subset
