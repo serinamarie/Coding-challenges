@@ -110,57 +110,58 @@
 
     # with psycopg2 
         # conn = psycopg2.connect(database=, user=, password, host=, port=)
-        # curs.execute("""CREATE DATABASE test""")
+        # cur.execute("""CREATE DATABASE test""")
 
 # create a table
     create_table = '''CREATE TABLE test(
         id serial PRIMARY KEY,
         num INT,
-        data VARCHAR
+        data VARCHAR(3)
     );
     '''
 
-# insert data 
-    # manually
-        # '''
-        INSERT INTO products values(
-            "baseball cap", "10", "red"),
-            ("journal", "15", "blue"); 
-            '''
-    # from csv.. after creating a table
-        # mysql
+# INSERT DATA MANUALLY
+    # '''
+    INSERT INTO products values(
+        "baseball cap", "10", "red"),
+        ("journal", "15", "blue"); 
         '''
-        LOAD DATA LOCAL INFILE 'folder/test.csv'
-        INTO TABLE student
-        FIELD TERMINATED BY ','
-        LINES TERMINATED BY '\n'
-        IGNORE 1 rows
-        (id, first_name, last_name)'
-        '''
-        # postgresql
-        ''' COPY test_table(id, first_name, last_name)
-        FROM '/folder/data.csv'
-        DELIMITER ','
-        CSV HEADER;
-        '''
-        # returns COPY n, where n is the number of rows in the table
-    # from df 
-        # WITH SQLALCHEMY
-            # from sqlalchemy import create_engine
-            # engine = create_engine('sqlite://', echo=False)
-            # df.to_sql('users', con=engine, if_exists='replace', index=False)
-                # sql --> df --> csv OR json
-                    # df2 = pd.read_sql("select * from users", con=engine)
-                    # df2 = pd.read_sql("""
-                        SELECT column_1, column_2
-                        FROM Table
-                        WHERE column_1 > number
-                        ORDER BY column_1
-                        """, 
-                        con = url)
-                    # df2.to_csv('df2.csv') or df2.to_json(orient=)
-            # WITHOUT SQLALCHEMY 
-                # df.to_sql('users', con=conn, if_exists='replace', index = False)
+# INSERT DATA DIRECTLY FROM A CSV, AFTER CREATING A TABLE
+    # mysql
+    '''
+    LOAD DATA LOCAL INFILE 'folder/test.csv'
+    INTO TABLE student
+    FIELD TERMINATED BY ','
+    LINES TERMINATED BY '\n'
+    IGNORE 1 rows
+    (id, first_name, last_name)'
+    '''
+    # postgresql
+    ''' COPY test_table(id, first_name, last_name)
+    FROM '/folder/data.csv'
+    DELIMITER ','
+    CSV HEADER;
+    '''
+    # returns COPY n, where n is the number of rows in the table
+    
+# INSERT DATA FROM A DATAFRAME
+    # WITH SQLALCHEMY
+        # from sqlalchemy import create_engine
+        # engine = create_engine('sqlite://', echo=False)
+        # df.to_sql('users', con=engine, if_exists='replace', index=False)
+            # sql --> df --> csv OR json
+                # df2 = pd.read_sql("select * from users", con=engine)
+                # df2 = pd.read_sql("""
+                    SELECT column_1, column_2
+                    FROM Table
+                    WHERE column_1 > number
+                    ORDER BY column_1
+                    """, 
+                    con = url)
+                # df2.to_csv('df2.csv') or df2.to_json(orient=)
+    # WITHOUT SQLALCHEMY 
+        # df.to_sql('users', con=conn, if_exists='replace', index = False)
+        
     # from json
         # with open('*.json') as f:
             data = json.load(f)
