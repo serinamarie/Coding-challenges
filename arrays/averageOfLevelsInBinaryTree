@@ -1,0 +1,62 @@
+# Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def averageOfLevels(self, root: TreeNode) -> List[float]:
+        # output: array of means for each level
+        # input: the root of a binary tree
+    
+        # where we will store our results
+        result = []
+        
+        # place the root in the queue. this is the current level of values
+        queue = [root]
+        
+        # while we have items in the queue
+        while queue:
+        
+            # we need to keep track of the average for the level (total/count)
+            total = 0
+            count = 0
+            
+            # temp storage for the next level of values
+            temp = []
+            
+            # while we have a queue
+            while queue:
+            
+                # pop the node off the front of the queue
+                current_node = queue.pop(0)
+                
+                # add node value to the total
+                total += current_node.val
+                
+                # keep track of the number of values
+                count += 1
+                
+                # if there is a left child
+                if current_node.left:
+                
+                    # add this to the temp queue
+                    temp.append(current_node.left)
+                    
+                # if there is a right child
+                if current_node.right:
+                
+                    # add to the temp queue
+                    temp.append(current_node.right)
+                    
+            # once we have no more nodes to add for this level, set our temp storage to be our queue
+            queue = temp
+            
+            # add the average for this level to the result
+            result.append (total / count)
+            
+        # return the array of all averages for each level
+        return result  
