@@ -60,7 +60,7 @@ def dfs(hashmap, starting_node):
       # if we haven't visited them
       if item not in visited:
         # add to stack if not visited
-        stack.extend(item)
+        stack.append(item)
 
       # if already visited
       else:
