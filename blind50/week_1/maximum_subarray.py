@@ -10,10 +10,10 @@ class Solution:
             return nums[0]
         max_subarray = nums[0]
         subarray = nums[0]
-        for i in nums[1:]:
+        for num in nums[1:]:
             if subarray < 0:
                 subarray = 0
-            subarray += i
+            subarray += num
             if subarray > max_subarray:
                 max_subarray = subarray
 
