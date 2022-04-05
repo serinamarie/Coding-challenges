@@ -16,10 +16,5 @@ class Solution:
                 cache[ordered_s].append(s)
             else:
                 cache[ordered_s] = [s]
-                
-        
-        res = [] # o(n)
-        for v in cache.values():
-            res.append(v)
             
-        return res
+        return cache.values()
